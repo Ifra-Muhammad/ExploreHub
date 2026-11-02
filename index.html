@@ -1,0 +1,384 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="ExploreHub helps you discover amazing destinations and plan your next trip.">
+
+    <title>ExploreHub</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- navbar -->
+
+    <header>
+        <nav class="navbar">
+
+            <a href="#home" class="logo">ExploreHub</a>
+
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#explore">Explore</a>
+                    <a href="#favorites">Favorites</a>
+                    <a href="#trips">My Trips</a>
+            </div> 
+            
+
+            <a href="#explore" class="nav-button">Start Exploring</a>
+
+        </nav>
+    </header>
+
+
+    <main>
+
+       <!-- hero section -->
+
+        <section id="home" class="hero">
+
+            <div class="hero-content">
+
+                <p class="hero-tagline">YOUR NEXT ADVENTURE STARTS HERE</p>
+
+                <h1>
+                    Discover Places.
+                    <span>Create Memories.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Explore beautiful destinations, discover new experiences
+                    and plan your perfect getaway with ExploreHub.
+                </p>
+
+                <a href="#explore" class="primary-button">
+                    Explore Destinations
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- destination search -->
+
+        <section class="search-section">
+
+            <div class="section-heading">
+                <p class="section-tag">FIND YOUR NEXT GETAWAY</p>
+                <h2>Where do you want to go?</h2>
+            </div>
+
+            <div class="search-box">
+
+                <label for="searchInput">Search destinations</label>
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search by destination name..."
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- explore destination> -->
+
+        <section id="explore" class="destinations-section">
+
+            <div class="section-heading">
+
+                <p class="section-tag">EXPLORE THE WORLD</p>
+
+                <h2>Popular Destinations</h2>
+
+                <p>
+                    Find a place that matches your travel style.
+                </p>
+
+            </div>
+
+
+            <!-- Destination Filters -->
+
+            <div class="filter-container">
+
+                <div class="filter-group">
+
+                    <label for="regionFilter">Choose Region</label>
+
+                    <select id="regionFilter">
+                        <option value="all">All Regions</option>
+                        <option value="asia">Asia</option>
+                        <option value="europe">Europe</option>
+                        <option value="middle-east">Middle East</option>
+                    </select>
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label for="activityFilter">Choose Activity</label>
+
+                    <select id="activityFilter">
+                        <option value="all">All Activities</option>
+                        <option value="adventure">Adventure</option>
+                        <option value="nature">Nature</option>
+                        <option value="relaxation">Relaxation</option>
+                        <option value="culture">Culture</option>
+                    </select>
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label for="sortFilter">Sort Destinations</label>
+
+                    <select id="sortFilter">
+                        <option value="default">Default</option>
+                        <option value="name">Name: A to Z</option>
+                        <option value="budget">Budget: Low to High</option>
+                    </select>
+
+                </div>
+
+                <button type="button" id="resetFilters">
+                    Reset Filters
+                </button>
+
+            </div>
+
+
+            <!-- Destination Results -->
+
+            <div class="results-info">
+
+                <p id="resultCount">Explore our destinations</p>
+
+            </div>
+
+
+            <!-- Destination Cards Container -->
+
+            <div id="destinationContainer" class="destination-grid">
+
+                <!-- Destination cards will be displayed here using JavaScript -->
+
+            </div>
+
+
+            <!-- Reusable Destination Card Template -->
+
+            <template id="destinationTemplate">
+
+                <article class="destination-card">
+
+                    <div class="destination-image">
+                        <img src="" alt="" class="card-image">
+                    </div>
+
+                    <div class="destination-details">
+
+                        <div class="card-heading">
+
+                            <h3 class="card-title"></h3>
+
+                            <button
+                                type="button"
+                                class="favorite-button"
+                                aria-label="Add to favorites"
+                            >
+                                ♡
+                            </button>
+
+                        </div>
+
+                        <p class="card-location"></p>
+
+                        <p class="card-description"></p>
+
+                        <div class="activity-tags"></div>
+
+                        <div class="card-bottom">
+
+                            <p class="card-price"></p>
+
+                            <button
+                                type="button"
+                                class="add-to-trip-button"
+                            >
+                                Add to Trip
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </template>
+
+
+            <!-- No Results Message -->
+
+            <div id="noResults" class="no-results" hidden>
+
+                <h3>No Destinations Found</h3>
+
+                <p>
+                    Try changing your search or filters to find other destinations.
+                </p>
+
+            </div>
+
+        </section>
+
+
+       <!-- fvrts destination -->
+
+        <section id="favorites" class="favorites-section">
+
+            <div class="section-heading">
+
+                <p class="section-tag">YOUR PERSONAL COLLECTION</p>
+
+                <h2>My Favorite Destinations</h2>
+
+                <p>
+                    Keep all your favorite travel places in one spot.
+                </p>
+
+            </div>
+
+            <div id="favoritesContainer" class="destination-grid">
+
+                <!-- Favorite destinations will appear here -->
+
+            </div>
+
+            <p id="emptyFavorites" class="empty-message">
+                You haven't saved any favorites yet.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+             6. TRIP PLANNER
+        ========================== -->
+
+        <section id="trips" class="trip-section">
+
+            <div class="section-heading">
+
+                <p class="section-tag">PLAN YOUR JOURNEY</p>
+
+                <h2>My Trip Planner</h2>
+
+                <p>
+                    Organize your selected destinations into a three-day trip.
+                </p>
+
+            </div>
+
+
+            <div class="trip-days">
+
+                <!-- DAY 1 -->
+
+                <div class="trip-day">
+
+                    <h3>Day 1</h3>
+
+                    <p class="day-description">Your first day of adventure.</p>
+
+                    <div id="day1Container" class="trip-destinations">
+
+                        <p class="empty-message">
+                            No destinations added yet.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DAY 2 -->
+
+                <div class="trip-day">
+
+                    <h3>Day 2</h3>
+
+                    <p class="day-description">Discover something new.</p>
+
+                    <div id="day2Container" class="trip-destinations">
+
+                        <p class="empty-message">
+                            No destinations added yet.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DAY 3 -->
+
+                <div class="trip-day">
+
+                    <h3>Day 3</h3>
+
+                    <p class="day-description">Make your final memories.</p>
+
+                    <div id="day3Container" class="trip-destinations">
+
+                        <p class="empty-message">
+                            No destinations added yet.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         7. FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <a href="#home" class="logo">ExploreHub<span>.</span></a>
+
+        <p>
+            Discover places. Create memories. Explore more.
+        </p>
+
+        <p class="copyright">
+            © 2026 ExploreHub. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- JavaScript File -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

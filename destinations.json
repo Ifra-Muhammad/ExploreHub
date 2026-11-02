@@ -1,0 +1,95 @@
+
+[
+  {
+    "id": 1,
+    "name": "Hunza Valley",
+    "location": "Gilgit-Baltistan, Pakistan",
+    "region": "asia",
+    "price": "budget",
+    "activities": ["nature", "adventure"],
+    "description": "Explore beautiful mountains, green valleys and peaceful lakes.",
+    "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800"
+  },
+  {
+    "id": 2,
+    "name": "Skardu",
+    "location": "Gilgit-Baltistan, Pakistan",
+    "region": "asia",
+    "price": "moderate",
+    "activities": ["adventure", "nature"],
+    "description": "Discover stunning mountains, lakes and breathtaking landscapes.",
+    "image": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800"
+  },
+  {
+    "id": 3,
+    "name": "Murree",
+    "location": "Punjab, Pakistan",
+    "region": "asia",
+    "price": "budget",
+    "activities": ["nature", "relaxation"],
+    "description": "Enjoy cool weather, green hills and beautiful mountain views.",
+    "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800"
+  },
+  {
+    "id": 4,
+    "name": "Istanbul",
+    "location": "Turkey",
+    "region": "europe",
+    "price": "moderate",
+    "activities": ["culture", "adventure"],
+    "description": "Experience historic architecture, markets and vibrant city life.",
+    "image": "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=800"
+  },
+  {
+    "id": 5,
+    "name": "Dubai",
+    "location": "United Arab Emirates",
+    "region": "middle-east",
+    "price": "premium",
+    "activities": ["adventure", "relaxation"],
+    "description": "Explore modern attractions, desert experiences and luxury shopping.",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800"
+  },
+  {
+    "id": 6,
+    "name": "Bali",
+    "location": "Indonesia",
+    "region": "asia",
+    "price": "moderate",
+    "activities": ["nature", "relaxation"],
+    "description": "Discover tropical beaches, beautiful temples and green landscapes.",
+    "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800"
+  },
+  {
+    "id": 7,
+    "name": "Paris",
+    "location": "France",
+    "region": "europe",
+    "price": "premium",
+    "activities": ["culture", "relaxation"],
+    "description": "Enjoy famous landmarks, art, architecture and charming streets.",
+    "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800"
+  },
+  {
+    "id": 8,
+    "name": "Swat Valley",
+    "location": "Khyber Pakhtunkhwa, Pakistan",
+    "region": "asia",
+    "price": "budget",
+    "activities": ["nature", "adventure"],
+    "description": "Explore scenic valleys, rivers and beautiful mountain scenery.",
+    "image": "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=800"
+  },
+  
+{
+    "id": 9,
+    "name": "Santorini",
+    "location": "Cyclades, Greece",
+    "region": "europe",
+    "price": "premium",
+    "activities": ["relaxation", "culture"],
+    "description": "Explore beautiful white buildings, blue domes and stunning sea views in Santorini.",
+    "image": "https://images.unsplash.com/photo-1533105079780-92b9be482077"
+}
+
+]
