@@ -49,6 +49,7 @@ body {
     font-size: 27px;
     font-weight: 700;
     letter-spacing: 1px;
+    text-decoration: none;
 }
 
 .nav-links {
@@ -73,6 +74,9 @@ body {
     color: var(--white) !important;
     padding: 10px 23px;
     border-radius: 4px;
+    text-decoration: none;
+
+    
 }
 
 .nav-button:hover {
@@ -89,13 +93,12 @@ body {
     background:
         linear-gradient(
             90deg,
-            rgba(26, 42, 59, 0.82),
-            rgba(26, 42, 59, 0.25)
+            rgba(26, 42, 59, 0.72),
+            rgba(26, 42, 59, 0.12)
         ),
-        url("https://images.unsplash.com/photo-1470770841072-f978cf4d019e")
+        url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b")
         center/cover no-repeat;
 }
-
 .hero-content {
     max-width: 650px;
 }
@@ -109,16 +112,19 @@ body {
 }
 
 .hero h1 {
-    color: var(--white);
-    font-size: clamp(36px, 5vw, 58px);
-    line-height: 1.15;
+   color: var(--white);
+    font-size: clamp(40px, 5vw, 62px);
+    line-height: 1.2;
+    font-weight: 700;
     margin-bottom: 20px;
+    letter-spacing: -1px;
 }
 
 .hero-description {
     color: #F0EEE9;
-    font-size: 16px;
-    max-width: 540px;
+    font-size: 17px;
+    line-height: 1.8;
+    max-width: 520px;
     margin-bottom: 30px;
 }
 
