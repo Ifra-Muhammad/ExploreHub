@@ -1,3 +1,4 @@
+
 // HTML elements select karna
 
 const destinationContainer = document.getElementById("destinationContainer");
@@ -11,9 +12,28 @@ const activityFilter = document.getElementById("activityFilter");
 const sortFilter = document.getElementById("sortFilter");
 const resetFilters = document.getElementById("resetFilters");
 
+// Favorites aur Trip Planner ke HTML elements
+
+const favoritesContainer = document.getElementById("favoritesContainer");
+const emptyFavorites = document.getElementById("emptyFavorites");
+
+const day1Container = document.getElementById("day1Container");
+const day2Container = document.getElementById("day2Container");
+const day3Container = document.getElementById("day3Container");
+
 // Saari destinations store karna
 
-let allDestinations = [];// is empty array me json file ka sara data store huga
+let allDestinations = [];
+
+// Favorites aur trip plan ka data store karna
+
+let favoriteDestinations = [];
+
+let tripPlan = {
+    day1: [],
+    day2: [],
+    day3: []
+};
 
 // JSON file se destinations load karna
 
@@ -25,7 +45,7 @@ async function loadDestinations() {
             throw new Error("Unable to load destinations data.");
         }
 
-        allDestinations = await response.json();//response.json() json data ko js code me change kerta he 
+        allDestinations = await response.json();
 
         applyFilters();
 
@@ -37,7 +57,7 @@ async function loadDestinations() {
     }
 }
 
-// Search aur filters apply karna
+// Search, filters aur sorting apply karna
 
 function applyFilters() {
 
@@ -83,8 +103,6 @@ function applyFilters() {
         });
     }
 
-    // Filtered destinations display karna
-
     displayDestinations(filteredDestinations);
 }
 
@@ -96,11 +114,7 @@ function displayDestinations(destinations) {
 
     destinations.forEach(function(destination) {
 
-        // HTML template ki copy banana
-
         const card = destinationTemplate.content.cloneNode(true);
-
-        // Card ke elements select karna
 
         const image = card.querySelector(".card-image");
         const title = card.querySelector(".card-title");
@@ -108,6 +122,10 @@ function displayDestinations(destinations) {
         const description = card.querySelector(".card-description");
         const activityTags = card.querySelector(".activity-tags");
         const price = card.querySelector(".card-price");
+
+        const favoriteButton = card.querySelector(".favorite-button");
+        const tripDaySelect = card.querySelector(".trip-day-select");
+        const addToTripButton = card.querySelector(".add-to-trip-button");
 
         // JSON data ko card mein set karna
 
@@ -130,7 +148,32 @@ function displayDestinations(destinations) {
             activityTags.appendChild(tag);
         });
 
-        // Card webpage par add karna
+        // Favorite button ki current state check karna
+
+        const isFavorite = favoriteDestinations.some(function(item) {
+            return item.id === destination.id;
+        });
+
+        if (isFavorite) {
+            favoriteButton.classList.add("active");
+            favoriteButton.textContent = "♥";
+            favoriteButton.setAttribute("aria-pressed", "true");
+        }
+
+        // Favorite button click event
+
+        favoriteButton.addEventListener("click", function() {
+            toggleFavorite(destination);
+        });
+
+        // Add to Trip button click event
+
+        addToTripButton.addEventListener("click", function() {
+
+            const selectedDay = tripDaySelect.value;
+
+            addToTrip(destination, selectedDay);
+        });
 
         destinationContainer.appendChild(card);
     });
@@ -140,9 +183,142 @@ function displayDestinations(destinations) {
     resultCount.textContent =
         `Showing ${destinations.length} of ${allDestinations.length} destinations`;
 
-    // No results message show ya hide karna
-
     noResults.hidden = destinations.length > 0;
+}
+
+// Favorite add ya remove karna
+
+function toggleFavorite(destination) {
+
+    const existingIndex = favoriteDestinations.findIndex(function(item) {
+        return item.id === destination.id;
+    });
+
+    if (existingIndex === -1) {
+
+        favoriteDestinations.push(destination);
+
+    } else {
+
+        favoriteDestinations.splice(existingIndex, 1);
+    }
+
+    displayFavorites();
+
+    applyFilters();
+}
+
+// Favorites list display karna
+
+function displayFavorites() {
+
+    favoritesContainer.innerHTML = "";
+
+    emptyFavorites.hidden = favoriteDestinations.length > 0;
+
+    favoriteDestinations.forEach(function(destination) {
+
+        const item = document.createElement("div");
+        item.classList.add("trip-item");
+
+        const title = document.createElement("p");
+        title.textContent = destination.name;
+
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "Remove";
+        removeButton.type = "button";
+        removeButton.classList.add("remove-trip-button");
+
+        removeButton.addEventListener("click", function() {
+
+            favoriteDestinations = favoriteDestinations.filter(function(item) {
+                return item.id !== destination.id;
+            });
+
+            displayFavorites();
+            applyFilters();
+        });
+
+        item.appendChild(title);
+        item.appendChild(removeButton);
+
+        favoritesContainer.appendChild(item);
+    });
+}
+
+// Destination ko selected trip day mein add karna
+
+function addToTrip(destination, selectedDay) {
+
+    const selectedDayDestinations = tripPlan[selectedDay];
+
+    const alreadyAdded = selectedDayDestinations.some(function(item) {
+        return item.id === destination.id;
+    });
+
+    if (alreadyAdded) {
+        alert("This destination is already added to your trip!");
+        return;
+    }
+
+    selectedDayDestinations.push(destination);
+
+    displayTripPlan();
+}
+
+// Trip Plan display karna
+
+function displayTripPlan() {
+
+    const dayContainers = {
+        day1: day1Container,
+        day2: day2Container,
+        day3: day3Container
+    };
+
+    Object.keys(tripPlan).forEach(function(day) {
+
+        const container = dayContainers[day];
+
+        container.innerHTML = "";
+
+        if (tripPlan[day].length === 0) {
+
+            const emptyMessage = document.createElement("p");
+            emptyMessage.classList.add("empty-message");
+            emptyMessage.textContent = "No destinations added yet.";
+
+            container.appendChild(emptyMessage);
+        }
+
+        tripPlan[day].forEach(function(destination) {
+
+            const item = document.createElement("div");
+            item.classList.add("trip-item");
+
+            const title = document.createElement("p");
+            title.textContent = destination.name;
+
+            const removeButton = document.createElement("button");
+            removeButton.textContent = "Remove";
+            removeButton.type = "button";
+            removeButton.classList.add("remove-trip-button");
+
+            removeButton.addEventListener("click", function() {
+
+                tripPlan[day] = tripPlan[day].filter(function(item) {
+                    return item.id !== destination.id;
+                });
+
+                displayTripPlan();
+            });
+
+            item.appendChild(title);
+            item.appendChild(removeButton);
+
+            container.appendChild(item);
+        });
+    });
 }
 
 // Search input event
