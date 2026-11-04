@@ -596,6 +596,65 @@ select:focus-visible {
     border-radius: 14px;
 }
 
+/* Trip day selection */
+
+.trip-day-select {
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--text);
+    font-size: 13px;
+    cursor: pointer;
+    outline: none;
+}
+
+.trip-day-select:focus {
+    border-color: var(--gold);
+}
+
+/* Favorite active state */
+
+.favorite-button.active {
+    background: var(--gold);
+    color: var(--white);
+    border-color: var(--gold);
+}
+
+/* Favorite and trip item layout */
+
+.trip-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.trip-item p {
+    color: var(--navy);
+    font-weight: 600;
+}
+
+/* Remove button */
+
+.remove-trip-button {
+    padding: 7px 12px;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.remove-trip-button:hover {
+    background: var(--navy-light);
+}
+
 /* Smooth filter controls */
 
 .filter-container select {
