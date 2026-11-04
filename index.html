@@ -15,7 +15,7 @@
 
 <body>
 
-    <!-- navbar -->
+    <!-- Navbar -->
 
     <header>
         <nav class="navbar">
@@ -25,10 +25,9 @@
             <div class="nav-links">
                 <a href="#home">Home</a>
                 <a href="#explore">Explore</a>
-                    <a href="#favorites">Favorites</a>
-                    <a href="#trips">My Trips</a>
-            </div> 
-            
+                <a href="#favorites">Favorites</a>
+                <a href="#trips">My Trips</a>
+            </div>
 
             <a href="#explore" class="nav-button">Start Exploring</a>
 
@@ -38,7 +37,7 @@
 
     <main>
 
-       <!-- hero section -->
+        <!-- Hero Section -->
 
         <section id="home" class="hero">
 
@@ -65,7 +64,7 @@
         </section>
 
 
-        <!-- destination search -->
+        <!-- Destination Search -->
 
         <section class="search-section">
 
@@ -89,7 +88,7 @@
         </section>
 
 
-        <!-- explore destination> -->
+        <!-- Explore Destinations -->
 
         <section id="explore" class="destinations-section">
 
@@ -171,7 +170,7 @@
 
             <div id="destinationContainer" class="destination-grid">
 
-                <!-- Destination cards will be displayed here using JavaScript -->
+                <!-- Destination cards will appear here using JavaScript -->
 
             </div>
 
@@ -196,6 +195,7 @@
                                 type="button"
                                 class="favorite-button"
                                 aria-label="Add to favorites"
+                                aria-pressed="false"
                             >
                                 ♡
                             </button>
@@ -212,12 +212,25 @@
 
                             <p class="card-price"></p>
 
-                            <button
-                                type="button"
-                                class="add-to-trip-button"
-                            >
-                                Add to Trip
-                            </button>
+                            <div class="trip-controls">
+
+                                <select
+                                    class="trip-day-select"
+                                    aria-label="Choose trip day"
+                                >
+                                    <option value="day1">Day 1</option>
+                                    <option value="day2">Day 2</option>
+                                    <option value="day3">Day 3</option>
+                                </select>
+
+                                <button
+                                    type="button"
+                                    class="add-to-trip-button"
+                                >
+                                    Add to Trip
+                                </button>
+
+                            </div>
 
                         </div>
 
@@ -243,7 +256,7 @@
         </section>
 
 
-       <!-- fvrts destination -->
+        <!-- Favorites Section -->
 
         <section id="favorites" class="favorites-section">
 
@@ -272,9 +285,7 @@
         </section>
 
 
-        <!-- =========================
-             6. TRIP PLANNER
-        ========================== -->
+        <!-- Trip Planner Section -->
 
         <section id="trips" class="trip-section">
 
@@ -293,7 +304,7 @@
 
             <div class="trip-days">
 
-                <!-- DAY 1 -->
+                <!-- Day 1 -->
 
                 <div class="trip-day">
 
@@ -312,7 +323,7 @@
                 </div>
 
 
-                <!-- DAY 2 -->
+                <!-- Day 2 -->
 
                 <div class="trip-day">
 
@@ -331,7 +342,7 @@
                 </div>
 
 
-                <!-- DAY 3 -->
+                <!-- Day 3 -->
 
                 <div class="trip-day">
 
@@ -356,9 +367,7 @@
     </main>
 
 
-    <!-- =========================
-         7. FOOTER
-    ========================== -->
+    <!-- Footer -->
 
     <footer class="footer">
 
@@ -373,10 +382,6 @@
         </p>
 
     </footer>
-
-
-    <!-- JavaScript File -->
-
     <script src="script.js"></script>
 
 </body>
