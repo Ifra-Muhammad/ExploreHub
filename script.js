@@ -25,7 +25,7 @@ const day3Container = document.getElementById("day3Container");
 
 let allDestinations = [];
 
-// Favorites aur trip plan ka data store karna
+// Favorites aur Trip Plan ka data store karna
 
 let favoriteDestinations = [];
 
@@ -35,9 +35,152 @@ let tripPlan = {
     day3: []
 };
 
+// localStorage se saved data load karna
+
+function loadSavedData() {
+
+    try {
+        const savedFavorites = localStorage.getItem("exploreHubFavorites");
+
+        if (savedFavorites !== null) {
+            const parsedFavorites = JSON.parse(savedFavorites);
+
+            if (Array.isArray(parsedFavorites)) {
+                favoriteDestinations = parsedFavorites;
+            }
+        }
+    } catch (error) {
+        console.error("Error loading favorites:", error);
+        favoriteDestinations = [];
+    }
+
+    try {
+        const savedTripPlan = localStorage.getItem("exploreHubTripPlan");
+
+        if (savedTripPlan !== null) {
+            const parsedTripPlan = JSON.parse(savedTripPlan);
+
+            if (parsedTripPlan && typeof parsedTripPlan === "object") {
+
+                tripPlan.day1 = Array.isArray(parsedTripPlan.day1)
+                    ? parsedTripPlan.day1 : [];
+
+                tripPlan.day2 = Array.isArray(parsedTripPlan.day2)
+                    ? parsedTripPlan.day2 : [];
+
+                tripPlan.day3 = Array.isArray(parsedTripPlan.day3)
+                    ? parsedTripPlan.day3 : [];
+            }
+        }
+    } catch (error) {
+        console.error("Error loading trip plan:", error);
+
+        tripPlan = {
+            day1: [],
+            day2: [],
+            day3: []
+        };
+    }
+}
+
+// localStorage mein Favorites save karna
+
+function saveFavorites() {
+
+    try {
+        localStorage.setItem(
+            "exploreHubFavorites",
+            JSON.stringify(favoriteDestinations)
+        );
+    } catch (error) {
+        console.error("Unable to save favorites:", error);
+    }
+}
+
+// localStorage mein Trip Plan save karna
+
+function saveTripPlan() {
+
+    try {
+        localStorage.setItem(
+            "exploreHubTripPlan",
+            JSON.stringify(tripPlan)
+        );
+    } catch (error) {
+        console.error("Unable to save trip plan:", error);
+    }
+}
+
+// Destination data check karna
+
+function isValidDestination(destination) {
+
+    return (
+        destination &&
+        typeof destination === "object" &&
+        (typeof destination.id === "string" ||
+            typeof destination.id === "number") &&
+        String(destination.id).trim() !== "" &&
+        typeof destination.name === "string" &&
+        destination.name.trim() !== "" &&
+        typeof destination.location === "string" &&
+        destination.location.trim() !== "" &&
+        typeof destination.region === "string" &&
+        typeof destination.price === "string" &&
+        Array.isArray(destination.activities) &&
+        destination.activities.every(function(activity) {
+            return typeof activity === "string";
+        })
+    );
+}
+
+// Saved data ko current destinations ke saath match karna
+
+function cleanSavedData() {
+
+    const validDestinations = new Map();
+
+    allDestinations.forEach(function(destination) {
+        validDestinations.set(String(destination.id), destination);
+    });
+
+    function cleanList(savedList) {
+
+        const cleanedList = [];
+        const usedIds = new Set();
+
+        savedList.forEach(function(item) {
+
+            if (!item || item.id === undefined || item.id === null) {
+                return;
+            }
+
+            const id = String(item.id);
+            const currentDestination = validDestinations.get(id);
+
+            if (currentDestination && !usedIds.has(id)) {
+                cleanedList.push(currentDestination);
+                usedIds.add(id);
+            }
+        });
+
+        return cleanedList;
+    }
+
+    favoriteDestinations = cleanList(favoriteDestinations);
+
+    tripPlan.day1 = cleanList(tripPlan.day1);
+    tripPlan.day2 = cleanList(tripPlan.day2);
+    tripPlan.day3 = cleanList(tripPlan.day3);
+
+    saveFavorites();
+    saveTripPlan();
+}
+
 // JSON file se destinations load karna
 
 async function loadDestinations() {
+
     try {
         const response = await fetch("destinations.json");
 
@@ -45,15 +188,63 @@ async function loadDestinations() {
             throw new Error("Unable to load destinations data.");
         }
 
-        allDestinations = await response.json();
+        const data = await response.json();
+
+        if (!Array.isArray(data)) {
+            throw new Error("Invalid destinations data format.");
+        }
+
+        const usedIds = new Set();
+
+        allDestinations = data.filter(function(destination) {
+
+            if (!isValidDestination(destination)) {
+                return false;
+            }
+
+            const id = String(destination.id);
+
+            if (usedIds.has(id)) {
+                return false;
+            }
+
+            usedIds.add(id);
+            return true;
+
+        }).map(function(destination) {
+
+            return {
+                ...destination,
+                description: typeof destination.description === "string"
+                    ? destination.description
+                    : "No description available.",
+
+                image: typeof destination.image === "string"
+                    ? destination.image
+                    : ""
+            };
+        });
+
+        // Saved data ko current JSON ke saath match karna
+
+        cleanSavedData();
+
+        // Favorites aur Trip Plan display karna
+
+        displayFavorites();
+        displayTripPlan();
 
         applyFilters();
 
     } catch (error) {
+
         console.error("Error loading destinations:", error);
 
         destinationContainer.innerHTML =
             "<p>Destinations load nahi ho sakin. Please try again.</p>";
+
+        resultCount.textContent = "Unable to load destinations.";
+        noResults.hidden = true;
     }
 }
 
@@ -129,7 +320,12 @@ function displayDestinations(destinations) {
 
         // JSON data ko card mein set karna
 
-        image.src = destination.image;
+        if (destination.image) {
+            image.src = destination.image;
+        } else {
+            image.removeAttribute("src");
+        }
+
         image.alt = destination.name;
 
         title.textContent = destination.name;
@@ -158,6 +354,7 @@ function displayDestinations(destinations) {
             favoriteButton.classList.add("active");
             favoriteButton.textContent = "♥";
             favoriteButton.setAttribute("aria-pressed", "true");
+            favoriteButton.setAttribute("aria-label", "Remove from favorites");
         }
 
         // Favorite button click event
@@ -183,6 +380,8 @@ function displayDestinations(destinations) {
     resultCount.textContent =
         `Showing ${destinations.length} of ${allDestinations.length} destinations`;
 
+    // No results message show ya hide karna
+
     noResults.hidden = destinations.length > 0;
 }
 
@@ -195,13 +394,12 @@ function toggleFavorite(destination) {
     });
 
     if (existingIndex === -1) {
-
         favoriteDestinations.push(destination);
-
     } else {
-
         favoriteDestinations.splice(existingIndex, 1);
     }
+
+    saveFavorites();
 
     displayFavorites();
 
@@ -235,6 +433,8 @@ function displayFavorites() {
                 return item.id !== destination.id;
             });
 
+            saveFavorites();
+
             displayFavorites();
             applyFilters();
         });
@@ -250,6 +450,10 @@ function displayFavorites() {
 
 function addToTrip(destination, selectedDay) {
 
+    if (!tripPlan[selectedDay]) {
+        return;
+    }
+
     const selectedDayDestinations = tripPlan[selectedDay];
 
     const alreadyAdded = selectedDayDestinations.some(function(item) {
@@ -262,6 +466,8 @@ function addToTrip(destination, selectedDay) {
     }
 
     selectedDayDestinations.push(destination);
+
+    saveTripPlan();
 
     displayTripPlan();
 }
@@ -310,6 +516,8 @@ function displayTripPlan() {
                     return item.id !== destination.id;
                 });
 
+                saveTripPlan();
+
                 displayTripPlan();
             });
 
@@ -348,6 +556,10 @@ resetFilters.addEventListener("click", function() {
 
     applyFilters();
 });
+
+// Saved data load karna
+
+loadSavedData();
 
 // Function call karna
 
