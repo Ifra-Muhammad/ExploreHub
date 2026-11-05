@@ -6,11 +6,11 @@
     --white: #FFFFFF;
     --navy: #24364B;
     --navy-light: #344B63;
-    --gold: #B69A68;
-    --gold-hover: #9F8253;
+    --gold: #8C6B35;
+    --gold-hover: #725526;
     --sand: #E9E3D8;
     --text: #303A45;
-    --muted: #777D83;
+    --muted: #626970;
     --border: #E5E0D7;
     --shadow: 0 8px 28px rgba(36, 54, 75, 0.08);
 }
@@ -73,10 +73,8 @@ body {
     background: var(--navy);
     color: var(--white) !important;
     padding: 10px 23px;
-    border-radius: 4px;
+    border-radius: 10px;
     text-decoration: none;
-
-    
 }
 
 .nav-button:hover {
@@ -99,6 +97,7 @@ body {
         url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b")
         center/cover no-repeat;
 }
+
 .hero-content {
     max-width: 650px;
 }
@@ -112,7 +111,7 @@ body {
 }
 
 .hero h1 {
-   color: var(--white);
+    color: var(--white);
     font-size: clamp(40px, 5vw, 62px);
     line-height: 1.2;
     font-weight: 700;
@@ -134,7 +133,7 @@ body {
     color: #FFFFFF;
     text-decoration: none;
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
     padding: 13px 28px;
     font-size: 15px;
     font-weight: 600;
@@ -190,7 +189,7 @@ section h2 {
 }
 
 input::placeholder {
-    color: #92918D;
+    color: #777777;
 }
 
 /* Filters */
@@ -208,26 +207,23 @@ input::placeholder {
     background: var(--white);
     color: var(--text);
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: 10px;
     font-size: 14px;
     cursor: pointer;
-}
-
-.filter-container select:focus {
-    outline: 2px solid var(--gold);
-    outline-offset: 2px;
 }
 
 .filter-container button {
     background: var(--navy);
     color: var(--white);
     border-color: var(--navy);
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .filter-container button:hover {
     background: var(--navy-light);
 }
+
+/* Result count */
 
 #resultCount {
     color: var(--navy);
@@ -247,7 +243,7 @@ input::placeholder {
 .destination-card {
     background: var(--white);
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 14px;
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -297,7 +293,7 @@ input::placeholder {
     background: #F5F1E9;
     border: 1px solid var(--border);
     color: var(--gold);
-    border-radius: 50%;
+    border-radius: 10px;
     width: 36px;
     height: 36px;
     font-size: 18px;
@@ -307,6 +303,12 @@ input::placeholder {
 }
 
 .favorite-button:hover {
+    background: var(--gold);
+    color: var(--white);
+    border-color: var(--gold);
+}
+
+.favorite-button.active {
     background: var(--gold);
     color: var(--white);
     border-color: var(--gold);
@@ -355,15 +357,35 @@ input::placeholder {
     text-transform: capitalize;
 }
 
+/* Trip controls */
+
+.trip-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.trip-day-select {
+    max-width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--text);
+    font-size: 13px;
+    cursor: pointer;
+}
+
 .add-to-trip-button {
     background: var(--navy);
     color: var(--white);
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
     padding: 9px 15px;
     cursor: pointer;
     font-size: 12px;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .add-to-trip-button:hover {
@@ -411,10 +433,18 @@ input::placeholder {
 .trip-day {
     background: var(--white);
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 14px;
     padding: 22px;
     min-height: 180px;
     box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease,
+                border-color 0.3s ease;
+}
+
+.trip-day:hover {
+    transform: translateY(-6px);
+    border-color: var(--gold);
+    box-shadow: 0 14px 30px rgba(36, 54, 75, 0.14);
 }
 
 .trip-day h3 {
@@ -430,6 +460,40 @@ input::placeholder {
     font-size: 14px;
 }
 
+/* Trip items */
+
+.trip-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.trip-item p {
+    color: var(--navy);
+    font-weight: 600;
+}
+
+/* Remove button */
+
+.remove-trip-button {
+    padding: 7px 12px;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.remove-trip-button:hover {
+    background: var(--navy-light);
+}
+
 /* Footer */
 
 footer {
@@ -438,6 +502,14 @@ footer {
     text-align: center;
     padding: 25px 8%;
     font-size: 14px;
+}
+
+.footer .logo {
+    color: var(--white);
+}
+
+.footer .logo span {
+    color: var(--gold);
 }
 
 /* Keyboard accessibility */
@@ -450,9 +522,17 @@ select:focus-visible {
     outline-offset: 3px;
 }
 
+.search-section input:focus-visible,
+.trip-day-select:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+    border-color: var(--gold);
+}
+
 /* Tablet responsiveness */
 
 @media (max-width: 900px) {
+
     .destination-grid,
     #favoritesContainer {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -476,6 +556,7 @@ select:focus-visible {
 /* Mobile responsiveness */
 
 @media (max-width: 600px) {
+
     .navbar {
         flex-direction: column;
         gap: 15px;
@@ -526,11 +607,16 @@ select:focus-visible {
     .card-bottom {
         flex-wrap: wrap;
     }
+
+    .trip-controls {
+        width: 100%;
+    }
 }
 
 /* Small mobile screens */
 
 @media (max-width: 380px) {
+
     .logo {
         font-size: 23px;
     }
@@ -551,112 +637,14 @@ select:focus-visible {
         align-items: flex-start;
         flex-direction: column;
     }
-}
 
+    .trip-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
 
-
-/* Rounded buttons */
-
-.nav-button,
-.primary-button,
-.filter-container button,
-.add-to-trip-button {
-    border-radius: 10px;
-    transition: all 0.3s ease;
-}
-
-/* Favorite button */
-
-.favorite-button {
-    border-radius: 10px;
-}
-
-/* Trip day cards */
-
-.trip-day {
-    border-radius: 14px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease,
-                border-color 0.3s ease;
-}
-
-.trip-day:hover {
-    transform: translateY(-6px);
-    border-color: var(--gold);
-    box-shadow: 0 14px 30px rgba(36, 54, 75, 0.14);
-}
-
-.trip-day:active {
-    transform: scale(0.98);
-}
-
-/* Smooth destination cards */
-
-.destination-card {
-    border-radius: 14px;
-}
-
-/* Trip day selection */
-
-.trip-day-select {
-    padding: 9px 12px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--white);
-    color: var(--text);
-    font-size: 13px;
-    cursor: pointer;
-    outline: none;
-}
-
-.trip-day-select:focus {
-    border-color: var(--gold);
-}
-
-/* Favorite active state */
-
-.favorite-button.active {
-    background: var(--gold);
-    color: var(--white);
-    border-color: var(--gold);
-}
-
-/* Favorite and trip item layout */
-
-.trip-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    padding: 12px;
-    margin-bottom: 12px;
-    background: var(--background);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-}
-
-.trip-item p {
-    color: var(--navy);
-    font-weight: 600;
-}
-
-/* Remove button */
-
-.remove-trip-button {
-    padding: 7px 12px;
-    background: var(--navy);
-    color: var(--white);
-    border: none;
-    border-radius: 7px;
-    cursor: pointer;
-}
-
-.remove-trip-button:hover {
-    background: var(--navy-light);
-}
-
-/* Smooth filter controls */
-
-.filter-container select {
-    border-radius: 10px;
+    .trip-day-select,
+    .add-to-trip-button {
+        width: 100%;
+    }
 }
