@@ -223,6 +223,14 @@ input::placeholder {
     background: var(--navy-light);
 }
 
+/* Loading message */
+
+.loading-message {
+    color: var(--muted);
+    text-align: center;
+    padding: 25px 15px;
+    font-size: 15px;
+}
 /* Result count */
 
 #resultCount {
