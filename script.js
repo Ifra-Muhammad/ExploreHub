@@ -241,7 +241,7 @@ async function loadDestinations() {
         console.error("Error loading destinations:", error);
 
         destinationContainer.innerHTML =
-            "<p>Destinations load nahi ho sakin. Please try again.</p>";
+            "<p>Please check your connection and try again.</p>";
 
         resultCount.textContent = "Unable to load destinations.";
         noResults.hidden = true;
