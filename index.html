@@ -80,7 +80,7 @@
                 <input
                     type="search"
                     id="searchInput"
-                    placeholder="Search by destination name..."
+                    placeholder="Search by destination name or location..."
                 >
 
             </div>
@@ -169,6 +169,10 @@
             <!-- Destination Cards Container -->
 
             <div id="destinationContainer" class="destination-grid">
+
+                <p id="loadingMessage" class="loading-message">
+                    Loading destinations... Please wait.
+                </p>
 
                 <!-- Destination cards will appear here using JavaScript -->
 
@@ -371,7 +375,7 @@
 
     <footer class="footer">
 
-        <a href="#home" class="logo">ExploreHub<span>.</span></a>
+        <a href="#home" class="logo">ExploreHub<span></span></a>
 
         <p>
             Discover places. Create memories. Explore more.
@@ -382,6 +386,8 @@
         </p>
 
     </footer>
+
+
     <script src="script.js"></script>
 
 </body>
